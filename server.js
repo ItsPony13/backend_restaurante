@@ -4,6 +4,7 @@ import cors from "cors";
 import connection from "./db.js";
 
 // Rutas
+// Modificacion de la rama dos
 import usuariosRoutes from "./routes/usuarios.js";
 import mesasRoutes from "./routes/mesas.js";
 import reservasRoutes from "./routes/reservas.js";
