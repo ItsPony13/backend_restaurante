@@ -16,15 +16,20 @@ router.get("/", (req, res) => {
 // Crear reserva
 router.post("/", (req, res) => {
   const { id_mesa, nombre_cliente, telefono, fecha_reserva, hora_reserva } = req.body;
+  console.log({ id_mesa, nombre_cliente, telefono, fecha_reserva, hora_reserva }); // <- log
   db.query(
-    "INSERT INTO reservas (id_mesa, nombre_cliente,telefono, fecha_reserva, hora_reserva) VALUES (?, ?, ?, ?, ?)",
+    "INSERT INTO reservas (id_mesa, nombre_cliente, telefono, fecha_reserva, hora_reserva) VALUES (?, ?, ?, ?, ?)",
     [id_mesa, nombre_cliente, telefono, fecha_reserva, hora_reserva],
     (err, result) => {
-      if (err) return res.status(500).json(err);
-      res.json({ id_reserva: result.insertId, id_mesa, nombre_cliente, telefono, fecha_reserva, hora_reserva});
+      if (err) {
+        console.error("ERROR EN SQL:", err); // <- log error completo
+        return res.status(500).json(err);
+      }
+      res.json({ id_reserva: result.insertId, id_mesa, nombre_cliente, telefono, fecha_reserva, hora_reserva });
     }
   );
 });
+
 
 // Actualizar reserva
 router.put("/:id", (req, res) => {
